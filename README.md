@@ -1,16 +1,12 @@
-# cherry_tree
+# Cherry Tree Mobile
 
-A new Flutter application.
+This is a mobile implementation of Cherry Tree note taking applicaiton:
+
+https://www.giuspen.com/cherrytree/
+
+At this point it is a prototype - it reads notes from existing file and builds a hierarchical list.
+It does not show images, tables and code boxes.
 
 ## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+1. Install Flutter framework
+2. Modify DAO.dart to point to a location where you have the Cherry Tree file
