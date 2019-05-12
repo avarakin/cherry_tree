@@ -77,7 +77,7 @@ void main() {
   repo.getNotes().then((notes) {
     print("reading...");
     for( final item in notes ) {
-      print(item.title);
+      print(item.id.toString() + " " + item.parent.toString() + " " + item.title);
       data.add(Entry(item));
     }
 
