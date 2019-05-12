@@ -1,6 +1,5 @@
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
-import 'dart:io';
 import 'package:path/path.dart';
 
 abstract class Dao<T> {
@@ -72,23 +71,9 @@ class DatabaseProvider {
 
 
   Future _init() async {
-//    var databasesPath = await getDatabasesPath();
-    var databasesPath = await getDatabasesPath();
-
-//    final filename = 'file.txt';
-
     String path = join('/mnt/sdcard/Android/data/com.dropbox.android/files/u17068703/scratch', 'CT.ctb');
-
-//    new File(path).writeAsString('some content')
-//        .then((File file) {
- //   });
-
-//    var databasesPath = await Directory();
-//    String path = join("/mnt/sdcard/", 'CT.ctb');
     _db = await openDatabase(path,  readOnly: true );
-
     print("Opened database");
-
   }
 }
 
