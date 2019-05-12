@@ -29,10 +29,24 @@ class ExpansionTileSample extends StatelessWidget {
 
 // One entry in the multilevel list displayed by this app.
 class Entry {
-  Entry(this.note, [this.children = const <Entry>[]]);
+  Entry(this.note);
 
   final Note note;
-  final List<Entry> children;
+  List<Entry> children = List<Entry>();
+
+  bool add(Entry item) {
+    if(note.id == item.note.parent) {
+      children.add(item);
+      return true;
+    } else {
+      for (Entry i in children) {
+        if(i.add(item))
+          return true;
+      }
+      return false;
+    }
+  }
+
 }
 
 
@@ -69,20 +83,25 @@ class EntryItem extends StatelessWidget {
 
 void main() {
 
-  final List<Entry> data = List<Entry>();
+//  final List<Entry> data = List<Entry>();
+
+  Note rootNote = Note();
+  rootNote.id = 0;
+
+  Entry rootEntry = Entry(rootNote);
+
   var db = DatabaseProvider.get;
 
 
   var repo = NotesDatabaseRepository(db);
   repo.getNotes().then((notes) {
     print("reading...");
-    for( final item in notes ) {
+    for( var item in notes ) {
       print(item.id.toString() + " " + item.parent.toString() + " " + item.title);
-      data.add(Entry(item));
-    }
 
-    print("Items" + data.toString());
-    runApp(ExpansionTileSample(data));
+      rootEntry.add(Entry(item));
+    }
+    runApp(ExpansionTileSample(rootEntry.children));
   }, onError: (e) {
     print(e);
   });
