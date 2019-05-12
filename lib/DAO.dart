@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
-
-
+import 'dart:async';
+import 'dart:io';
+import 'package:path/path.dart';
 
 abstract class Dao<T> {
 
@@ -21,17 +22,11 @@ class Note {
 }
 
 class NoteDao implements Dao<Note> {
-  final tableName = 'notes';
-  final columnId = 'id';
-  final _columnTitle = 'title';
-  final _columnDescription = 'description';
+  final tableName = 'node';
+  final columnId = 'node_id';
+  final _columnTitle = 'name';
+  final _columnDescription = 'txt';
 
-
-  @override
-  String get createTableQuery =>
-      "CREATE TABLE $tableName($columnId INTEGER PRIMARY KEY,"
-          " $_columnTitle TEXT,"
-          " $_columnDescription TEXT)";
 
   @override
   Note fromMap(Map<String, dynamic> query) {
@@ -74,11 +69,26 @@ class DatabaseProvider {
     return _db;
   }
 
-  Future _init() async {
-    //var databasesPath = await getDatabasesPath();
-    String path = "/storage/emulated/0/CT.ctb";
 
-    _db = await openDatabase(path, version: 1);
+
+  Future _init() async {
+//    var databasesPath = await getDatabasesPath();
+    var databasesPath = await getDatabasesPath();
+
+//    final filename = 'file.txt';
+
+    String path = join('/mnt/sdcard/Android/data/com.dropbox.android/files/u17068703/scratch', 'CT.ctb');
+
+//    new File(path).writeAsString('some content')
+//        .then((File file) {
+ //   });
+
+//    var databasesPath = await Directory();
+//    String path = join("/mnt/sdcard/", 'CT.ctb');
+    _db = await openDatabase(path,  readOnly: true );
+
+    print("Opened database");
+
   }
 }
 
